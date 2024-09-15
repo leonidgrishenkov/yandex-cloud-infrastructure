@@ -41,6 +41,12 @@ terraform apply \
     -var="yc-image-id=$YC_IMAGE_ID"
 ```
 
+You can list created resources by executing:
+
+```sh
+terraform state list
+```
+
 Delete resources:
 
 ```sh
