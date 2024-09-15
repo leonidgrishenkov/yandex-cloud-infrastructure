@@ -1,8 +1,0 @@
-#cloud-config
-users:
-  - name: yc-user
-    groups: sudo
-    shell: /bin/bash
-    sudo: 'ALL=(ALL) NOPASSWD:ALL'
-    ssh-authorized-keys:
-      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCtzyiYNPjHDEwFnKSc69ylIgYPrZm0FgGtgubgBHU02JvkjfUUOt3P39v7/ll7BQujdpwVNS3CHJ4C/Pa47Cg/lgiwFbtm0mv50/PvhY4VAmvBiCiBZkZ0sYnJx0F4TjJ9dQsCs0AhjKeBDfonFE1Xerz95pcvTQVYkwYX7JdqDmNS5LczEm0pd1wHPypyPrJSvVGey5FvzKDAFJEBvsCZZ2z0k+4yLnnYgA5ilTuOI0AdqVwACHQXML2wdtHpf/AK6lW3YoRWt7m1WXxGsNvJBKYcenUXJUyhhAdD37PNfoBUINTXwZD8TZ0qwY6YeyUXCSCbP0J0epe+avsFVVfN+g8mQhK7+jtyedtxqBnlmKVtgpLAl+FdJdjpHethfZ4duPaIafASZP1EfO4tuW2MgdMEXo4Ag5QTpECJeVA9toR6L3gVMqsFholB2i2a2GovV6PHxl0PkxvSn8u2wF+bNRi9GAHHJBQG4jsdso95det/8KyeL+fQKFeMbBxloG3JZ5ctOfoTn35MbslmGgi+kkKlanCk/LtqbSpzVsV4pAV9RG8hsEtEifTH+MZ29gUs4neM1piVxcbme6H2I3XRQmy6qMp9HMYtl/gT4PpB6AFnzGLWW11SQdFKHw8mhZYK0u5/Of6ATPQUIqi0QdfmCAypsaNJ+J//HR9WanMPcw== grishenkovleonid@proton.me
