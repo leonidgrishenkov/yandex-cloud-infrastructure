@@ -47,6 +47,6 @@ resource "yandex_compute_instance" "vm-from-terraform-01" {
   }
 
   metadata = {
-    user-data = "${file("./cloud-init.txt")}"
+    user-data = "${file("./cloud-init.yaml")}"
   }
 }
