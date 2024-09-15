@@ -19,7 +19,7 @@ resource "yandex_compute_disk" "boot-disk-01" {
   type     = "network-hdd"
   zone     = "ru-central1-a"
   size     = "20"
-  image_id = "fd8d75k8a0dldkad633n"
+  image_id = var.yc-image-id
 }
 
 resource "yandex_compute_instance" "vm-from-terraform-01" {
@@ -41,6 +41,7 @@ resource "yandex_compute_instance" "vm-from-terraform-01" {
 
   network_interface {
     subnet_id = "e9bk25s0hddagr9a5st5"
+    security_group_ids = ["enpbtrqsm1fe39b0gtf0"]
     nat       = true
     ipv4      = true
   }
