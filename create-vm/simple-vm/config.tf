@@ -46,6 +46,6 @@ resource "yandex_compute_instance" "vm-from-terraform-01" {
   }
 
   metadata = {
-    ssh-keys = "yc-user:${file("~/.ssh/dev-hosts.pub")}"
+    user-data = "${file("./cloud-init.txt")}"
   }
 }

@@ -13,6 +13,12 @@ Initialize terraform:
 terraform init
 ```
 
+Optionaly you can validate specifications by executing:
+
+```sh
+terraform validate
+```
+
 Check specifications using those variables:
 
 ```sh
