@@ -1,10 +1,16 @@
+# Configure Terraform
+
+Here I will explain how to configure Terraform on your local machine to be able to work with Yandex Cloud Terraform provider.
+
+For more details see official documentation: [Getting started with Terraform | Yandex Cloud](https://yandex.cloud/en/docs/tutorials/infrastructure-management/terraform-quickstart)
+
 Create configuration file for Terraform:
 
 ```sh
 touch ~/.terraformrc
 ```
 
-Add there following:
+Add there the followings:
 
 ```sh
 provider_installation {
