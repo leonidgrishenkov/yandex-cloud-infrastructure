@@ -111,4 +111,7 @@ terraform destroy \
     -var="yc-folder-id=$YC_FOLDER_ID"
 ```
 
-Before this step, don't forget to delete all images inside the registry and activate cloud owner profile (or any kind of profile that has permissions to manipulate the cloud or the registry) and set his IAM token as `YC_IAM_TOKEN` environment variable. In this example we also use `container-registry-admin` profile because it has admin priviliges on registry. In other case you will get an error.
+Before this step, don't forget to:
+
+-   Delete all images inside the registry
+-   Activate cloud owner profile (or any kind of profile that has permissions to manipulate the cloud or the registry) and set his IAM token as `YC_IAM_TOKEN` environment variable. In this example we also use `container-registry-admin` profile because it has admin priviliges on registry. In other case you will get an error.
