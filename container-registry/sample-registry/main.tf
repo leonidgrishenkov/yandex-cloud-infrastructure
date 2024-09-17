@@ -28,16 +28,6 @@ resource "yandex_container_registry" "registry-1" {
   }
 }
 
-# https://terraform-provider.yandexcloud.net/Resources/container_registry_iam_binding
-# resource "yandex_container_registry_iam_binding" "puller" {
-#   registry_id = yandex_container_registry.your-registry.id
-#   role        = "container-registry.images.puller"
-
-#   members = [
-#     "serviceAccount:allUsers",
-#   ]
-# }
-
 data "yandex_container_registry" "registry-1" {
   registry_id = yandex_container_registry.registry-1.id
 }
