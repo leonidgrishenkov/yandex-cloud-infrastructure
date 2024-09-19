@@ -95,7 +95,7 @@ docker tag python:3.12.5-slim cr.yandex/$YC_REGISTRY_ID/python:3.12.5-slim
 Now push:
 
 ```sh
-docker push cr.yandex/$YC_REGISTRY_ID/postgres-ssl:16.4-bullseye-1.6
+docker push cr.yandex/$YC_REGISTRY_ID/python:3.12.5-slim
 ```
 
 If everything is ok, image will be pushed into this registry.
