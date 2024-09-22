@@ -1,3 +1,7 @@
+locals {
+  zone = "ru-central1-a"
+}
+
 terraform {
   required_providers {
     yandex = {
@@ -11,13 +15,13 @@ provider "yandex" {
   token     = var.yc-iam-token
   cloud_id  = var.yc-cloud-id
   folder_id = var.yc-folder-id
-  zone      = "ru-central1-a"
+  zone      = local.zone
 }
 
 # https://terraform-provider.yandexcloud.net/Resources/vpc_network
 resource "yandex_vpc_network" "network-1" {
   name        = "network-1"
-  description = "Network created from Terraform"
+  description = "Basic network"
   folder_id   = var.yc-folder-id
 }
 
@@ -37,9 +41,9 @@ resource "yandex_vpc_subnet" "network-1-subnet-b" {
 }
 
 # https://terraform-provider.yandexcloud.net/Resources/vpc_security_group
-resource "yandex_vpc_security_group" "network-1-group-1" {
-  name        = "network-1-group-1"
-  description = "Security group created from Terraform"
+resource "yandex_vpc_security_group" "network-1-basic-sg-1" {
+  name        = "network-1-basic-sg-1"
+  description = "Basic Security group for network"
   network_id  = yandex_vpc_network.network-1.id
 
   ingress {
@@ -49,10 +53,9 @@ resource "yandex_vpc_security_group" "network-1-group-1" {
     from_port      = 0
     to_port        = 65535
   }
-
   ingress {
     protocol          = "ANY"
-    description       = "All self traffic "
+    description       = "All self traffic"
     predefined_target = "self_security_group"
   }
 
@@ -62,17 +65,44 @@ resource "yandex_vpc_security_group" "network-1-group-1" {
     v4_cidr_blocks = ["0.0.0.0/0"]
     port           = 80
   }
-
   egress {
     protocol       = "TCP"
     description    = "All HTTPS traffic"
     v4_cidr_blocks = ["0.0.0.0/0"]
     port           = 443
   }
-
   egress {
     protocol          = "ANY"
-    description       = "All self traffic "
+    description       = "All self traffic"
     predefined_target = "self_security_group"
   }
 }
+
+# https://terraform-provider.yandexcloud.net/DataSources/datasource_vpc_network
+data "yandex_vpc_network" "network-1" {
+  network_id = yandex_vpc_network.network-1.id
+  folder_id  = var.yc-folder-id
+}
+output "network-1-id" {
+  value = data.yandex_vpc_network.network-1.id
+}
+
+# https://terraform-provider.yandexcloud.net/DataSources/datasource_vpc_subnet
+# Output for `network-1-subnet-a`
+data "yandex_vpc_subnet" "network-1-subnet-a" {
+  subnet_id  = yandex_vpc_subnet.network-1-subnet-a.id
+  folder_id  = var.yc-folder-id
+}
+output "network-1-subnet-a-id" {
+  value = data.yandex_vpc_subnet.network-1-subnet-a.id
+}
+
+# Output for `network-1-subnet-b`
+data "yandex_vpc_subnet" "network-1-subnet-b" {
+  subnet_id  = yandex_vpc_subnet.network-1-subnet-b.id
+  folder_id  = var.yc-folder-id
+}
+output "network-1-subnet-b-id" {
+  value = data.yandex_vpc_subnet.network-1-subnet-b.id
+}
+

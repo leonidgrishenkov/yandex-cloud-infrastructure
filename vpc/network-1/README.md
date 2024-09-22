@@ -44,3 +44,15 @@ terraform destroy \
     -var="yc-cloud-id=$YC_CLOUD_ID" \
     -var="yc-folder-id=$YC_FOLDER_ID"
 ```
+
+
+# Get output ids
+
+```sh
+export YC_NETWORK_ID=$(terraform output -json | jq -r '.["network-1-id"].value')
+```
+
+```sh
+export YC_SUBNET_ID=$(terraform output -json | jq -r '.["network-1-subnet-a-id"].value')
+```
+
