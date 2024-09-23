@@ -1,24 +1,29 @@
-variable "yc-cloud-id" {
+variable "cloud_id" {
   type        = string
   description = "Cloud ID"
 }
 
-variable "yc-folder-id" {
+variable "folder_id" {
   type        = string
   description = "Folder ID"
 }
 
-variable "yc-iam-token" {
+variable "iam_token" {
   type        = string
   description = "IAM Token"
 }
 
-variable "yc-network-id" {
+variable "network_id" {
   type        = string
   description = "Target network id"
 }
 
-variable "yc-subnet-id" {
+variable "subnet_id" {
   type        = string
   description = "Target subnet id"
+}
+
+variable "zone" {
+  type    = string
+  default = "ru-central1-a"
 }
