@@ -46,6 +46,7 @@ resource "yandex_vpc_security_group" "network-1-basic-sg-1" {
   description = "Basic Security group for network"
   network_id  = yandex_vpc_network.network-1.id
 
+  # Ingress traffic
   ingress {
     protocol       = "ANY"
     description    = "All traffic from my local IP"
@@ -59,6 +60,7 @@ resource "yandex_vpc_security_group" "network-1-basic-sg-1" {
     predefined_target = "self_security_group"
   }
 
+  # Egress traffic
   egress {
     protocol       = "TCP"
     description    = "All HTTP traffic"
@@ -90,8 +92,8 @@ output "network-1-id" {
 # https://terraform-provider.yandexcloud.net/DataSources/datasource_vpc_subnet
 # Output for `network-1-subnet-a`
 data "yandex_vpc_subnet" "network-1-subnet-a" {
-  subnet_id  = yandex_vpc_subnet.network-1-subnet-a.id
-  folder_id  = var.yc-folder-id
+  subnet_id = yandex_vpc_subnet.network-1-subnet-a.id
+  folder_id = var.yc-folder-id
 }
 output "network-1-subnet-a-id" {
   value = data.yandex_vpc_subnet.network-1-subnet-a.id
@@ -99,8 +101,8 @@ output "network-1-subnet-a-id" {
 
 # Output for `network-1-subnet-b`
 data "yandex_vpc_subnet" "network-1-subnet-b" {
-  subnet_id  = yandex_vpc_subnet.network-1-subnet-b.id
-  folder_id  = var.yc-folder-id
+  subnet_id = yandex_vpc_subnet.network-1-subnet-b.id
+  folder_id = var.yc-folder-id
 }
 output "network-1-subnet-b-id" {
   value = data.yandex_vpc_subnet.network-1-subnet-b.id
