@@ -71,6 +71,10 @@ Create and activate config profile for this SA:
 yc config profile create personal-container-registry-admin
 ```
 
+```sh
+yc config set service-account-key $YC_KEY_PATH
+```
+
 Set folder id for the profile:
 
 ```sh
