@@ -49,12 +49,12 @@ resource "yandex_resourcemanager_folder_iam_binding" "container-registry-admin" 
 data "yandex_container_registry" "personal-registry-1" {
   registry_id = yandex_container_registry.personal-registry-1.id
 }
-data "yandex_iam_service_account" "personal-container-registry-admin" {
-  service_account_id = yandex_iam_service_account.personal-container-registry-admin.id
+output "personal-registry-1-id" {
+    value = data.yandex_container_registry.personal-registry-1.id
 }
 
-output "personal-registry-1-id" {
-  value = data.yandex_container_registry.personal-registry-1.id
+data "yandex_iam_service_account" "personal-container-registry-admin" {
+  service_account_id = yandex_iam_service_account.personal-container-registry-admin.id
 }
 output "personal-container-registry-admin-id" {
   value = data.yandex_iam_service_account.personal-container-registry-admin.id
