@@ -6,3 +6,4 @@
 *.tfstate.*
 
 .env
+**/env.sh
