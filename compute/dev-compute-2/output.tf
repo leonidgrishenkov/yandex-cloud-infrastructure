@@ -4,3 +4,8 @@ output "dev-compute-2-external-ip" {
 output "dev-compute-2-internal-ip" {
   value = data.yandex_compute_instance.compute.network_interface.0.ip_address
 }
+
+output "dev-compute-2-password" {
+  value     = random_password.compute-password.result
+  sensitive = true
+}
