@@ -3,8 +3,8 @@ locals {
   ssh_key_path = "~/.ssh/dev-hosts.pub"
 }
 
-data "yandex_compute_image" "container-optimized-image" {
-  family = "container-optimized-image"
+data "yandex_compute_image" "container-image" {
+  family = "ubuntu-2204-lts"
 }
 
 resource "random_password" "compute-password" {
@@ -30,9 +30,9 @@ resource "yandex_compute_instance" "compute" {
 
   boot_disk {
     initialize_params {
-      image_id = data.yandex_compute_image.container-optimized-image.id
+      image_id = data.yandex_compute_image.container-image.id
       type     = "network-hdd"
-      size     = 60
+      size     = 100
     }
     auto_delete = true
   }
