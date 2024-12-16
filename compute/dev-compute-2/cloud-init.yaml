@@ -1,7 +1,7 @@
 #cloud-config
 users:
     - name: ${username}
-      groups: sudo
+      groups: sudo,docker
       sudo: ALL=(ALL) NOPASSWD:ALL
       hashed_passwd: ${passwd}
       lock_passwd: false

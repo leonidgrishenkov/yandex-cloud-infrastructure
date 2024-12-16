@@ -32,7 +32,7 @@ resource "yandex_compute_instance" "compute" {
     initialize_params {
       image_id = data.yandex_compute_image.container-optimized-image.id
       type     = "network-hdd"
-      size     = 60
+      size     = 100
     }
     auto_delete = true
   }
@@ -42,6 +42,7 @@ resource "yandex_compute_instance" "compute" {
     security_group_ids = ["enptqt7t6605o30ftsnd"]
     nat                = true
     ipv4               = true
+    nat_ip_address     = "51.250.50.232"
   }
 
   metadata = {
