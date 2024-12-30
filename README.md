@@ -23,3 +23,31 @@ provider_installation {
   }
 }
 ```
+
+
+# Use direnv
+
+Enter to the directory with configurations and type:
+
+```sh
+direnv allow
+```
+
+Now all variables will be automatically loaded and unloaded into your shell on enter/exit directory.
+
+
+# Terraform output
+
+Show all project outputs:
+
+```sh
+terraform output
+```
+
+To see output in json format type:
+
+```sh
+terraform output -json
+```
+
+Also here you can see generated in runtime outputs such as passwords which are marked as sesitive.

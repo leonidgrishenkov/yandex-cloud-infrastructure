@@ -1,15 +1,3 @@
-```sh
-direnv allow
-```
+# Note
 
-Create resources:
-
-```sh
-terraform apply
-```
-
-Show the outputs:
-
-```sh
-terraform output
-```
+`dev-compute-2` - Configurations for development machine build from container optimazed image.
