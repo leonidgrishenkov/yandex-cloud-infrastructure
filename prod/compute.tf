@@ -62,7 +62,3 @@ resource "yandex_compute_instance" "prod-compute-1" {
     })
   }
 }
-
-# data "yandex_compute_instance" "prod-compute-1" {
-#   instance_id = yandex_compute_instance.prod-compute-1.id
-# }

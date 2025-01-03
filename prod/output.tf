@@ -1,10 +1,3 @@
-output "prod-compute-1-nat-ip-addr" {
-  value = data.yandex_compute_instance.prod-compute-1.network_interface.0.nat_ip_address
-}
-output "prod-compute-1-ip-addr" {
-  value = data.yandex_compute_instance.prod-compute-1.network_interface.0.ip_address
-}
-
 output "yc-user-passwd" {
   value     = random_password.yc-user-passwd.result
   sensitive = true
