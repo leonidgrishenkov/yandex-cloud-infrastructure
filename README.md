@@ -24,7 +24,6 @@ provider_installation {
 }
 ```
 
-
 # Use direnv
 
 Enter to the directory with configurations and type:
@@ -35,8 +34,21 @@ direnv allow
 
 Now all variables will be automatically loaded and unloaded into your shell on enter/exit directory.
 
+# Terraform commands
 
-# Terraform output
+## Output
+
+Show terraform state:
+
+```sh
+terraform show
+```
+
+You can also run terraform console to query any state values:
+
+```sh
+terraform console
+```
 
 Show all project outputs:
 
@@ -51,3 +63,17 @@ terraform output -json
 ```
 
 Also here you can see generated in runtime outputs such as passwords which are marked as sesitive.
+
+## Destroy
+
+Delete resources all resources:
+
+```sh
+terraform destroy
+```
+
+Destroy only specific resource:
+
+```sh
+terraform destroy -target yandex_compute_instance.dev-compute-1
+```
