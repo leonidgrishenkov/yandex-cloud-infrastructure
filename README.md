@@ -24,6 +24,87 @@ provider_installation {
 }
 ```
 
+# Setup S3 backend
+
+[Uploading Terraform states to Yandex Object Storage](https://yandex.cloud/en/docs/tutorials/infrastructure-management/terraform-state-storage#set-up-backend)
+
+Create S3 bucket for terraform states and special service account for terraform with `editor` role:
+
+```sh
+$ cd ./s3/terraform-state
+
+$ terraform apply
+```
+
+Create auth key for SA:
+
+```sh
+yc iam key create \
+  --service-account-id $(yc iam service-account list --format json | jq -r '.[] | select(.name == "terraform-sa") | .id') \
+  --folder-id $(yc config get folder-id) \
+  --output /tmp/.terraform-sa-auth-key.json
+```
+
+Create `yc` profile for SA:
+
+```sh
+$ yc config profile create terraform-sa
+
+Profile 'sa-terraform' created and activated
+```
+
+Configure profile:
+
+```sh
+$ yc config set service-account-key /tmp/.terraform-sa-auth-key.json
+$ yc config set cloud-id $YC_CLOUD_ID
+$ yc config set folder-id $YC_FOLDER_ID
+```
+
+`YC_CLOUD_ID` and `YC_FOLDER_ID` variables have been already set via `.envrc` with main profile. If you didn't do this, just set them manually.
+
+Grab output of access and secret keys:
+
+```sh
+terraform output -json
+```
+
+Go to folder with resources configurations. In this repo to `./prod/`
+
+Add configuration for terraform itself, for example, into `terraform.tf` file:
+
+```hcl
+terraform {
+  required_providers {
+    yandex = {
+      source = "yandex-cloud/yandex"
+    }
+  }
+  required_version = ">= 0.13"
+
+  backend "s3" {
+    endpoints = {
+      s3 = "https://storage.yandexcloud.net"
+    }
+    region  = "ru-central1"
+    bucket  = "<bucket-name>"
+    key     = "<prefix>/terraform.tfstate"
+    encrypt = false
+
+    skip_region_validation      = true
+    skip_credentials_validation = true
+    skip_requesting_account_id  = true
+    skip_s3_checksum            = true
+  }
+}
+```
+
+Initialize terraform:
+
+```sh
+terraform init -backend-config="access_key=$ACCESS_KEY" -backend-config="secret_key=$SECRET_KEY"
+```
+
 # Use direnv
 
 Enter to the directory with configurations and type:
