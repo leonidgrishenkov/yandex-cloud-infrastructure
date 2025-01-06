@@ -105,6 +105,53 @@ Initialize terraform:
 terraform init -backend-config="access_key=$ACCESS_KEY" -backend-config="secret_key=$SECRET_KEY"
 ```
 
+## Best practice
+
+We need to configure terraform in each folder/module and we can't use variables here.
+
+To avoid futher mistakes we can split static configurations into separate file called `backend.hcl` (you can use whatever you want) and leave only `key` here. So in each folder/module we have to only specify correct `key` value for the pacticular folder/module.
+
+Now our `terraform.tf` file will look like that:
+
+```hcl
+terraform {
+  required_providers {
+    yandex = {
+      source = "yandex-cloud/yandex"
+    }
+  }
+  required_version = ">= 0.13"
+
+  backend "s3" {
+    key     = "<prefix>/terraform.tfstate"
+  }
+}
+```
+
+And `backend.hcl`:
+
+```hcl
+endpoints = {
+    s3 = "https://storage.yandexcloud.net"
+}
+region  = "ru-central1"
+bucket  = "<bucket-name>"
+encrypt = false
+skip_region_validation      = true
+skip_credentials_validation = true
+skip_requesting_account_id  = true
+skip_s3_checksum            = true
+```
+
+To initialize terraform we will use following command:
+
+```sh
+terraform init \
+    -backend-config="access_key=$ACCESS_KEY" \
+    -backend-config="secret_key=$SECRET_KEY" \
+    -backend-config=backend.hcl
+```
+
 # Use direnv
 
 Enter to the directory with configurations and type:
