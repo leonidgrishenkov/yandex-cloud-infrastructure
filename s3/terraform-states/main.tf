@@ -1,6 +1,6 @@
-resource "yandex_iam_service_account_static_access_key" "terraform-states-admin-static-key" {
-  service_account_id = yandex_iam_service_account.terraform-states-admin.id
-  description        = "Static access key for administator of s3 bucket: terraform-states"
+resource "yandex_iam_service_account_static_access_key" "terraform-sa-static-key" {
+  service_account_id = yandex_iam_service_account.terraform-sa.id
+  description        = "Static access key for terraform service account"
 }
 
 # Symmetric key for bucket encryption.
@@ -15,8 +15,8 @@ resource "yandex_kms_symmetric_key" "terraform-states-key-1" {
 # https://terraform-provider.yandexcloud.net/Resources/storage_bucket
 # https://yandex.cloud/en-ru/docs/storage/operations/buckets/create#tf_1
 resource "yandex_storage_bucket" "terraform-states" {
-  access_key            = yandex_iam_service_account_static_access_key.terraform-states-admin-static-key.access_key
-  secret_key            = yandex_iam_service_account_static_access_key.terraform-states-admin-static-key.secret_key
+  access_key            = yandex_iam_service_account_static_access_key.terraform-sa-static-key.access_key
+  secret_key            = yandex_iam_service_account_static_access_key.terraform-sa-static-key.secret_key
   bucket                = "terraform-states-${var.cloud_id}"
   max_size              = "5368709120" # Max bucket size threshold. Set to 5GB.
   default_storage_class = "STANDARD"
