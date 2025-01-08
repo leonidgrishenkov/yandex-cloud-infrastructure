@@ -94,7 +94,7 @@ resource "yandex_compute_instance" "prod-compute-1" {
   }
 
   metadata = {
-    user-data = templatefile("./cloud-init.yaml",
+    user-data = templatefile("${path.module}/cloud-init.yaml",
       {
         yc-user-passwd    = random_password.yc-user-passwd.bcrypt_hash,
         yc-user-ssh-key   = file("~/.ssh/prod-hosts.pub"),
