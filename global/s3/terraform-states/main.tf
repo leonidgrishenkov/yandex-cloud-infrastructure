@@ -58,4 +58,26 @@ resource "yandex_storage_bucket" "terraform-states" {
       }
     }
   }
+
+  logging {
+    target_bucket = "logging-b1gcj63q69dgi7jup4i5"
+    target_prefix = "terraform-states/"
+  }
+
+  lifecycle_rule {
+    id      = "noncurrent_to_cold_after_7d"
+    enabled = true
+    noncurrent_version_transition {
+      days          = 7
+      storage_class = "COLD"
+    }
+  }
+  lifecycle_rule {
+    id      = "noncurrent_to_ice_after_30d"
+    enabled = true
+    noncurrent_version_transition {
+      days          = 30
+      storage_class = "ICE"
+    }
+  }
 }
