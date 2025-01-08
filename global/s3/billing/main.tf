@@ -40,13 +40,6 @@ data "terraform_remote_state" "iam" {
   }
 }
 
-resource "yandex_kms_symmetric_key" "billing-key-1" {
-  name              = "billing-key-1"
-  description       = "Symmetric key for s3 bucket encryption: billing"
-  default_algorithm = "AES_128"
-  folder_id         = var.folder_id
-}
-
 resource "yandex_storage_bucket" "bucket" {
   access_key            = data.terraform_remote_state.iam.outputs.s3-admin-access-key
   secret_key            = data.terraform_remote_state.iam.outputs.s3-admin-secret-key
@@ -70,15 +63,6 @@ resource "yandex_storage_bucket" "bucket" {
   logging {
     target_bucket = "logging-b1gcj63q69dgi7jup4i5"
     target_prefix = "billing/"
-  }
-
-  server_side_encryption_configuration {
-    rule {
-      apply_server_side_encryption_by_default {
-        kms_master_key_id = yandex_kms_symmetric_key.billing-key-1.id
-        sse_algorithm     = "aws:kms"
-      }
-    }
   }
 
   # Define lifecycle rules.
