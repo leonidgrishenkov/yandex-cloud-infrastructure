@@ -87,7 +87,7 @@ resource "yandex_compute_instance" "prod-compute-1" {
 
   network_interface {
     subnet_id          = data.terraform_remote_state.vpc.outputs.prod-vpc-1-subnet-a-id
-    security_group_ids = [data.terraform_remote_state.vpc.outputs.prod-vpc-1-sg-1-id]
+    security_group_ids = data.terraform_remote_state.vpc.outputs.prod-vpc-1-sg-ids
     nat                = true
     ipv4               = true
     nat_ip_address     = data.terraform_remote_state.vpc.outputs.prod-addr-1
