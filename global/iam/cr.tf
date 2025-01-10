@@ -36,3 +36,11 @@ resource "yandex_resourcemanager_folder_iam_binding" "cr-binding" {
     "serviceAccount:${yandex_iam_service_account.cr-sa[each.key].id}"
   ]
 }
+
+resource "yandex_iam_service_account_key" "cr-sa-auth-key" {
+  for_each = {
+    for sa in yandex_iam_service_account.cr-sa : sa.name => sa.id
+  }
+  service_account_id = each.value
+  key_algorithm      = "RSA_4096"
+}
