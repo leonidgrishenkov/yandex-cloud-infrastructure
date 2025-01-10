@@ -60,7 +60,7 @@ resource "yandex_storage_bucket" "terraform-states" {
   }
 
   logging {
-    target_bucket = "logging-b1gcj63q69dgi7jup4i5"
+    target_bucket = "logging-b1gcj63q69dgi7jup4i5-1"
     target_prefix = "terraform-states/"
   }
 

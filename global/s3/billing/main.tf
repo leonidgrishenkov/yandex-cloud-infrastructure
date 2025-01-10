@@ -41,9 +41,9 @@ data "terraform_remote_state" "iam" {
 }
 
 resource "yandex_storage_bucket" "bucket" {
-  access_key            = data.terraform_remote_state.iam.outputs.s3-admin-access-key
-  secret_key            = data.terraform_remote_state.iam.outputs.s3-admin-secret-key
-  bucket                = "billing-${var.cloud_id}"
+  access_key            = data.terraform_remote_state.iam.outputs.s3-sak["s3-admin"].access_key
+  secret_key            = data.terraform_remote_state.iam.outputs.s3-sak["s3-admin"].secret_key
+  bucket                = "billing-${var.cloud_id}-1"
   max_size              = "5368709120" # Max bucket size threshold. Set to 5GB.
   default_storage_class = "STANDARD"
   acl                   = "private"
@@ -61,7 +61,7 @@ resource "yandex_storage_bucket" "bucket" {
   # Enable bucket logging.
   # https://yandex.cloud/en-ru/docs/storage/operations/buckets/enable-logging
   logging {
-    target_bucket = "logging-b1gcj63q69dgi7jup4i5"
+    target_bucket = "logging-b1gcj63q69dgi7jup4i5-1"
     target_prefix = "billing/"
   }
 
