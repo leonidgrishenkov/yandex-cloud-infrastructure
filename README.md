@@ -33,7 +33,7 @@ provider_installation {
 Create S3 bucket for terraform states and special service account for terraform with `editor` role:
 
 ```sh
-$ cd ./s3/terraform-state
+$ cd ./global/s3/terraform-state
 
 $ terraform apply
 ```
