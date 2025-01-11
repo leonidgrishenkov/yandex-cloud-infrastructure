@@ -1,7 +1,7 @@
 #cloud-config
 users:
     - name: yc-user
-      groups: sudo
+      groups: sudo,docker
       sudo: ALL=(ALL) NOPASSWD:ALL
       hashed_passwd: ${yc-user-passwd}
       lock_passwd: false
