@@ -5,11 +5,15 @@ resource "yandex_vpc_security_group" "prod-vpc-1-sg-1" {
   ingress {
     protocol          = "ANY"
     description       = "Self security group traffic"
+    from_port         = 0
+    to_port           = 65535
     predefined_target = "self_security_group"
   }
   egress {
     protocol          = "ANY"
     description       = "Self security group traffic"
+    from_port         = 0
+    to_port           = 65535
     predefined_target = "self_security_group"
   }
 }
