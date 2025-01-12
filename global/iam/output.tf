@@ -21,3 +21,17 @@ output "cr-sa-auth-key" {
   }
   sensitive = true
 }
+
+output "billing-sa-auth-key" {
+  value = {
+    for name, ak in yandex_iam_service_account_key.billing-sa-auth-key : name => {
+      id                 = ak.id
+      service_account_id = ak.service_account_id
+      created_at         = ak.created_at
+      key_algorithm      = ak.key_algorithm
+      public_key         = ak.public_key
+      private_key        = ak.private_key
+    }
+  }
+  sensitive = true
+}
