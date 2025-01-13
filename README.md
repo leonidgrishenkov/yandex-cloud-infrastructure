@@ -207,3 +207,11 @@ Destroy only specific resource:
 ```sh
 terraform destroy -target yandex_compute_instance.dev-compute-1
 ```
+
+# yc
+
+Get serial port output of deployed compute instance:
+
+```sh
+yc compute instance get-serial-port-output --name prod-compute-1
+```
