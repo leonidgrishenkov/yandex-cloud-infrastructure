@@ -44,7 +44,7 @@ data "yandex_compute_image" "container-optimized-image" {
 }
 
 resource "random_password" "yc-user-passwd" {
-  length  = 30
+  length  = 40
   upper   = true
   lower   = true
   numeric = true
@@ -52,7 +52,7 @@ resource "random_password" "yc-user-passwd" {
 }
 
 resource "random_password" "github-ci-passwd" {
-  length  = 30
+  length  = 40
   upper   = true
   lower   = true
   numeric = true
