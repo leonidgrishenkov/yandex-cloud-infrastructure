@@ -24,16 +24,16 @@ resource "yandex_vpc_security_group" "prod-vpc-1-sg-2" {
 
   ingress {
     protocol       = "ANY"
-    description    = "Traffic from my local IP"
+    description    = "All traffic from my IP"
     v4_cidr_blocks = ["185.61.78.47/32"]
     from_port      = 0
     to_port        = 65535
   }
   ingress {
     protocol       = "TCP"
-    description    = "Traffic to SSH port"
+    description    = "All traffic to SSH port"
     v4_cidr_blocks = ["0.0.0.0/0"]
-    port           = 22
+    port           = 51222
   }
 }
 
