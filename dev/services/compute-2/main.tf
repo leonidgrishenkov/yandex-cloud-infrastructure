@@ -63,8 +63,8 @@ resource "yandex_compute_instance" "dev-compute-2" {
   }
 
   resources {
-    cores         = 8
-    memory        = 8
+    cores         = 6
+    memory        = 12
     core_fraction = 100
   }
 
