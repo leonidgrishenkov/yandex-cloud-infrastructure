@@ -8,7 +8,7 @@ terraform {
 
   backend "s3" {
     # WARN: Do not forget to set correct value for the particular module/folder!
-    key = "dev/services/compute-1/terraform.tfstate"
+    key    = "dev/services/compute-1/terraform.tfstate"
   }
 }
 
@@ -36,6 +36,7 @@ data "terraform_remote_state" "vpc" {
     skip_credentials_validation = true
     skip_requesting_account_id  = true
     skip_s3_checksum            = true
+    skip_metadata_api_check     = true
   }
 }
 
@@ -87,8 +88,8 @@ resource "yandex_compute_instance" "dev-compute-1" {
   metadata = {
     user-data = templatefile("${path.module}/cloud-init.yaml",
       {
-        yc-user-passwd    = random_password.yc-user-passwd.bcrypt_hash,
-        yc-user-ssh-key   = file("~/.ssh/dev-hosts.pub"),
+        yc-user-passwd  = random_password.yc-user-passwd.bcrypt_hash,
+        yc-user-ssh-key = file("~/.ssh/dev-hosts.pub"),
     })
   }
 }
