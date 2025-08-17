@@ -111,7 +111,7 @@ terraform init -backend-config="access_key=$ACCESS_KEY" -backend-config="secret_
 
 We need to configure terraform in each folder/module and we can't use variables here.
 
-To avoid futher mistakes we can split static configurations into separate file called `backend.hcl` (you can use whatever you want) and leave only `key` here. So in each folder/module we have to only specify correct `key` value for the pacticular folder/module.
+To avoid further mistakes we can split static configurations into separate file called `backend.hcl` (you can use whatever you want) and leave only `key` here. So in each folder/module we have to only specify correct `key` value for the pacticular folder/module.
 
 Now our `terraform.tf` file will look like that:
 
