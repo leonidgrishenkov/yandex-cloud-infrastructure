@@ -63,7 +63,7 @@ $ yc config set cloud-id $YC_CLOUD_ID
 $ yc config set folder-id $YC_FOLDER_ID
 ```
 
-`YC_CLOUD_ID` and `YC_FOLDER_ID` variables have been already set via `.envrc` with main profile. If you didn't do this, just set them manually.
+`YC_CLOUD_ID` and `YC_FOLDER_ID` variables have been already set via `.envrc` with main profile. If you haven't done that, just set them manually.
 
 Grab output of access and secret keys:
 
@@ -104,7 +104,7 @@ terraform {
 Initialize terraform:
 
 ```sh
-terraform init -backend-config="access_key=$ACCESS_KEY" -backend-config="secret_key=$SECRET_KEY"
+terraform init -backend-config="access_key=$YC_S3_ACCESS_KEY" -backend-config="secret_key=$YC_S3_SECRET_KEY"
 ```
 
 ## Best practice
@@ -149,12 +149,12 @@ To initialize terraform we will use following command:
 
 ```sh
 terraform init \
-    -backend-config="access_key=$ACCESS_KEY" \
-    -backend-config="secret_key=$SECRET_KEY" \
+    -backend-config="access_key=$YC_S3_ACCESS_KEY" \
+    -backend-config="secret_key=$YC_S3_SECRET_KEY" \
     -backend-config=backend.hcl
 ```
 
-# Use direnv
+# Using direnv
 
 Enter to the directory with configurations and type:
 
@@ -163,50 +163,6 @@ direnv allow
 ```
 
 Now all variables will be automatically loaded and unloaded into your shell on enter/exit directory.
-
-# Terraform commands
-
-## Output
-
-Show terraform state:
-
-```sh
-terraform show
-```
-
-You can also run terraform console to query any state values:
-
-```sh
-terraform console
-```
-
-Show all project outputs:
-
-```sh
-terraform output
-```
-
-To see output in json format type:
-
-```sh
-terraform output -json
-```
-
-Also here you can see generated in runtime outputs such as passwords which are marked as sesitive.
-
-## Destroy
-
-Delete resources all resources:
-
-```sh
-terraform destroy
-```
-
-Destroy only specific resource:
-
-```sh
-terraform destroy -target yandex_compute_instance.dev-compute-1
-```
 
 # yc
 
