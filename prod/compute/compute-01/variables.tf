@@ -18,3 +18,17 @@ variable "zone" {
   default = "ru-central1-a"
 }
 
+variable "vpc_subnet_id" {
+  type        = string
+  description = "VPC subnet ID from dependency"
+}
+
+variable "vpc_security_group_ids" {
+  type        = list(string)
+  description = "VPC security group IDs from dependency"
+}
+
+variable "vpc_nat_ip" {
+  type        = string
+  description = "VPC NAT IP address from dependency"
+}

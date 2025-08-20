@@ -5,11 +5,11 @@ remote_state {
     if_exists = "overwrite_terragrunt"
   }
   config = {
-    bucket = "terraform-states-b1gcj63q69dgi7jup4i5"
+    bucket = get_env("YC_S3_TF_STATES_BUCKET")
     key    = "${path_relative_to_include()}/terraform.tfstate"
     region = "ru-central1"
     endpoints = {
-      s3 = "https://storage.yandexcloud.net"
+      s3 = get_env("YC_S3_ENDPOINT") 
     }
     encrypt                     = false
     skip_region_validation      = true

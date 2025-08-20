@@ -24,11 +24,6 @@ resource "yandex_compute_instance" "prod-compute-1" {
   platform_id = "standard-v3"
   zone        = var.zone
   folder_id   = var.folder_id
-  labels = {
-    env  = "prod"
-    type = "personal"
-    iac  = "true"
-  }
 
   resources {
     cores         = 4
@@ -46,11 +41,11 @@ resource "yandex_compute_instance" "prod-compute-1" {
   }
 
   network_interface {
-    subnet_id          = data.terraform_remote_state.vpc.outputs.prod-vpc-1-subnet-a-id
-    security_group_ids = data.terraform_remote_state.vpc.outputs.prod-vpc-1-sg-ids
+    subnet_id          = var.vpc_subnet_id
+    security_group_ids = var.vpc_security_group_ids
     nat                = true
     ipv4               = true
-    nat_ip_address     = data.terraform_remote_state.vpc.outputs.prod-addr-1
+    nat_ip_address     = var.vpc_nat_ip
   }
 
   metadata = {
