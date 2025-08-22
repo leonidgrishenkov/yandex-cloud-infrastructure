@@ -24,32 +24,25 @@ resource "yandex_vpc_security_group" "prod-vpc-1-sg-2" {
 
   ingress {
     protocol       = "ANY"
-    description    = "All traffic from my IP"
+    description    = "All traffic from admin IP"
     v4_cidr_blocks = ["185.61.78.47/32"]
     from_port      = 0
     to_port        = 65535
   }
-  ingress {
-    protocol       = "TCP"
-    description    = "All traffic to SSH port"
-    v4_cidr_blocks = ["0.0.0.0/0"]
-    port           = 51222
-  }
 }
-
 
 resource "yandex_vpc_security_group" "prod-vpc-1-sg-3" {
   name       = "prod-vpc-1-sg-3"
   network_id = yandex_vpc_network.prod-vpc-1.id
 
   egress {
-    protocol       = "ANY"
+    protocol       = "TCP"
     description    = "All HTTP traffic"
     v4_cidr_blocks = ["0.0.0.0/0"]
     port           = 80
   }
   egress {
-    protocol       = "ANY"
+    protocol       = "TCP"
     description    = "All HTTPS traffic"
     v4_cidr_blocks = ["0.0.0.0/0"]
     port           = 443
