@@ -7,4 +7,5 @@
 
 **/.env
 **/env.sh
-**/.envrc
+
+**/.terragrunt-cache/*
