@@ -61,5 +61,9 @@ variable "disk_size" {
   type        = string
 }
 
+variable "labels" {
+  type        = map(any)
+}
+
 
 

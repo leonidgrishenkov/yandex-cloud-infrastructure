@@ -3,7 +3,7 @@ include "root" {
 }
 
 terraform {
-  source = "../../../modules/compute//container-optimized"
+  source = "../../../../modules/compute//container-optimized"
 }
 
 dependency "vpc" {
@@ -20,5 +20,9 @@ inputs = {
   vpc_subnet_id = dependency.vpc.outputs.prod-vpc-1-subnet-a-id
   vpc_security_group_ids = dependency.vpc.outputs.prod-vpc-1-sg-ids
   vpc_nat_ip = dependency.vpc.outputs.prod-addr-1
+  labels = {
+    env = "prod"
+    iac = "true"
+  }
 }
 

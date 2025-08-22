@@ -17,6 +17,8 @@ resource "yandex_compute_instance" "yci" {
   zone        = var.zone
   folder_id   = var.folder_id
 
+  labels = var.labels
+
   resources {
     cores         = var.cores
     memory        = var.memory
