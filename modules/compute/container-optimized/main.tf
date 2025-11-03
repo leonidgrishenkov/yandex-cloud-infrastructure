@@ -41,7 +41,7 @@ resource "yandex_compute_instance" "yci" {
     ipv4               = true
     nat_ip_address     = var.vpc_nat_ip
   }
-
+  # TODO: can we generate ssh file on the fly?
   metadata = {
     user-data = templatefile("${path.module}/cloud-init.yaml",
       {
