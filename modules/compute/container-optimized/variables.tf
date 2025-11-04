@@ -65,5 +65,10 @@ variable "labels" {
   type        = map(any)
 }
 
+variable "cloud_init_template_path" {
+  type        = string
+  description = "Path to cloud-init template file. If not specified default will be used."
+  default     = null
+}
 
 

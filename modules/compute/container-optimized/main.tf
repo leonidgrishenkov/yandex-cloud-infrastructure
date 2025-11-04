@@ -10,6 +10,11 @@ resource "random_password" "yc_user_passwd" {
   special = true
 }
 
+resource "tls_private_key" "yc_user_ssh_key" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+
 resource "yandex_compute_instance" "yci" {
   name        = var.name
   hostname    = var.name
@@ -41,12 +46,13 @@ resource "yandex_compute_instance" "yci" {
     ipv4               = true
     nat_ip_address     = var.vpc_nat_ip
   }
-  # TODO: can we generate ssh file on the fly?
   metadata = {
-    user-data = templatefile("${path.module}/cloud-init.yaml",
+    user-data = templatefile(
+      coalesce(var.cloud_init_template_path, "${path.module}/cloud-init.yaml"),
       {
-        yc_user_passwd    = random_password.yc_user_passwd.bcrypt_hash,
-        yc_user_ssh_key   = file("~/.ssh/prod-hosts.pub")
-    })
+        yc_user_passwd  = random_password.yc_user_passwd.bcrypt_hash,
+        yc_user_ssh_key = tls_private_key.yc_user_ssh_key.public_key_openssh
+      }
+    )
   }
 }

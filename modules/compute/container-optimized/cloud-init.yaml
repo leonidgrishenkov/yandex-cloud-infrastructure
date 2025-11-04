@@ -19,11 +19,5 @@ write_files:
     owner: root:root
     permissions: '0644'
 
-  - path: /etc/profile.d/extra.sh
-    content: |
-      export ENV="prod"
-    owner: root:root
-    permissions: '0644'
-
 runcmd:
   - sudo apt update && sudo apt upgrade -y
