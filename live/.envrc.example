@@ -1,0 +1,15 @@
+# vim: set filetype=sh:
+
+export YC_IAM_TOKEN=$(yc iam create-token)
+# consider fill these two manually for faster direnv load
+export YC_CLOUD_ID=$(yc config get cloud-id)
+export YC_FOLDER_ID=$(yc config get folder-id)
+
+# I use 1password-cli for this: $(op read "op://vault/path/to/secret/attr-name")
+export YC_S3_ACCESS_KEY=
+export YC_S3_SECRET_KEY=
+export YC_S3_TF_STATES_BUCKET=
+export YC_S3_ENDPOINT="https://storage.yandexcloud.net"
+
+export AWS_ACCESS_KEY_ID=$YC_S3_ACCESS_KEY
+export AWS_SECRET_ACCESS_KEY=$YC_S3_SECRET_KEY
