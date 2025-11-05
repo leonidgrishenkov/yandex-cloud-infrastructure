@@ -22,7 +22,6 @@ write_files:
   - path: /etc/profile.d/extra.sh
     content: |
       export ENV="dev"
-      export TERM=xterm-256color
     owner: root:root
     permissions: '0644'
 
