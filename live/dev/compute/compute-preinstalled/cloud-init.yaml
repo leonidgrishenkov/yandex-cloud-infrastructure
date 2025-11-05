@@ -1,0 +1,38 @@
+#cloud-config
+users:
+  - name: yc-user
+    groups: sudo,docker
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    hashed_passwd: ${yc_user_passwd}
+    lock_passwd: false
+    shell: /bin/bash
+    ssh-authorized-keys:
+      - ${yc_user_ssh_key}
+
+write_files:
+  - path: /etc/ssh/sshd_config.d/extra.conf
+    content: |
+      AllowUsers yc-user
+      PermitRootLogin no
+      PasswordAuthentication no
+      Port 51222
+    owner: root:root
+    permissions: "0644"
+
+  - path: /etc/profile.d/extra.sh
+    content: |
+      export ENV="dev"
+    owner: root:root
+    permissions: "0644"
+
+runcmd:
+  - |
+    sudo apt update \
+    && sudo apt upgrade -y \
+    && sudo apt install -y stow gpg wget git zsh
+  - |
+    git clone -q https://github.com/leonidgrishenkov/dotfiles.git /tmp/dotfiles \
+    && cd /tmp/dotfiles \
+    && stow --stow atuin bat btop delta fsh lazygit ripgrep ruff starship yazi zsh mise
+  - chsh -s $(which zsh)
+  - curl https://mise.run/zsh | sh
