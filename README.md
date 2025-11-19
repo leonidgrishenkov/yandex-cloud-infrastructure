@@ -74,3 +74,7 @@ Get serial port output of deployed compute instance:
 ```sh
 yc compute instance get-serial-port-output --name prod-compute-1
 ```
+
+# CI/CD
+
+Docker image for GitHub CI/CD defined [here](https://github.com/leonidgrishenkov/ci-terragrunt-yc)
