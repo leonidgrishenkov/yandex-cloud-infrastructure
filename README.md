@@ -1,3 +1,4 @@
+[![Destroy Resources](https://github.com/leonidgrishenkov/yandex-cloud-infrastructure/actions/workflows/destroy.yml/badge.svg)](https://github.com/leonidgrishenkov/yandex-cloud-infrastructure/actions/workflows/destroy.yml) [![Deploy Resources](https://github.com/leonidgrishenkov/yandex-cloud-infrastructure/actions/workflows/deploy.yml/badge.svg)](https://github.com/leonidgrishenkov/yandex-cloud-infrastructure/actions/workflows/deploy.yml)
 [Yandex Cloud Terraform Provider](https://terraform-provider.yandexcloud.net/index)
 
 # Configure Terraform
