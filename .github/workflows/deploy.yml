@@ -44,7 +44,7 @@ jobs:
 
       - name: Show inputs
         run: |
-          echo "Running destroy workflow for environment='${{ inputs.environment }}' path='${{ inputs.path }}'"
+          echo "Running deploy workflow for environment='${{ inputs.environment }}' path='${{ inputs.path }}'"
           echo "Target module: ./live/${{ inputs.environment }}/${{ inputs.path }}"
 
       - name: Setup YC
