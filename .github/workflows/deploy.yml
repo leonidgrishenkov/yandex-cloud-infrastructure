@@ -78,4 +78,4 @@ jobs:
         working-directory: "live/${{ inputs.environment }}/${{ inputs.path }}"
         env:
           YC_IAM_TOKEN: ${{ steps.setup-yc.outputs.iam_token }}
-        run: terragrunt apply --non-interactive
+        run: terragrunt apply -auto-approve --non-interactive
