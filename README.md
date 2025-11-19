@@ -1,7 +1,7 @@
 [![Destroy Resources](https://github.com/leonidgrishenkov/yandex-cloud-infrastructure/actions/workflows/destroy.yml/badge.svg)](https://github.com/leonidgrishenkov/yandex-cloud-infrastructure/actions/workflows/destroy.yml) [![Deploy Resources](https://github.com/leonidgrishenkov/yandex-cloud-infrastructure/actions/workflows/deploy.yml/badge.svg)](https://github.com/leonidgrishenkov/yandex-cloud-infrastructure/actions/workflows/deploy.yml)
-[Yandex Cloud Terraform Provider](https://terraform-provider.yandexcloud.net/index)
-
 # Configure Terraform
+
+[Yandex Cloud Terraform Provider](https://terraform-provider.yandexcloud.net/index)
 
 Here I will explain how to configure Terraform on your local machine to be able to work with Yandex Cloud Terraform provider.
 
