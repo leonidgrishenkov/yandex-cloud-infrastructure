@@ -1,0 +1,68 @@
+name: Deploy Resources
+
+on:
+  workflow_dispatch:
+    inputs:
+      path:
+        description: "Path to module"
+        required: true
+        type: string
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/leonidgrishenkov/ci-terragrunt-yc:terragrunt-0.93.8-amd64-v0.1
+    defaults:
+      run:
+        shell: bash
+    env:
+      YC_CLOUD_ID: ${{ secrets.YC_CLOUD_ID }}
+      YC_FOLDER_ID: ${{ secrets.YC_FOLDER_ID }}
+      YC_S3_TF_STATES_BUCKET: ${{ secrets.YC_S3_TF_STATES_BUCKET }}
+      YC_S3_ENDPOINT: ${{ secrets.YC_S3_ENDPOINT }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+    steps:
+      - name: "Checkout"
+        id: checkout
+        uses: actions/checkout@v4
+
+      - name: Setup YC
+        id: setup-yc
+        run: |
+          echo "${{ secrets.YC_TERRAFORM_SA_AUTH_JSON }}" | base64 -d > ./yc_terraform_sa_auth.json
+
+          yc config profile create terraform-sa
+          yc config set service-account-key ./yc_terraform_sa_auth.json
+          yc config set cloud-id "${{ secrets.YC_CLOUD_ID }}"
+          yc config set folder-id "${{ secrets.YC_FOLDER_ID }}"
+
+          echo "iam_token=$(yc iam create-token)" >> $GITHUB_OUTPUT
+
+      - name: Validate
+        id: validate
+        working-directory: "${{ inputs.path }}"
+        env:
+          YC_IAM_TOKEN: ${{ steps.setup-yc.outputs.iam_token }}
+        run: terragrunt validate
+
+      - name: Plan
+        id: plan
+        working-directory: "${{ inputs.path }}"
+        env:
+          YC_IAM_TOKEN: ${{ steps.setup-yc.outputs.iam_token }}
+        run: terragrunt plan
+
+      - name: Deploy
+        id: deploy
+        working-directory: "${{ inputs.path }}"
+        env:
+          YC_IAM_TOKEN: ${{ steps.setup-yc.outputs.iam_token }}
+        run: terragrunt apply --non-interactive
+
