@@ -1,40 +1,22 @@
 [![Destroy Resources](https://github.com/leonidgrishenkov/yandex-cloud-infrastructure/actions/workflows/destroy.yml/badge.svg)](https://github.com/leonidgrishenkov/yandex-cloud-infrastructure/actions/workflows/destroy.yml) [![Deploy Resources](https://github.com/leonidgrishenkov/yandex-cloud-infrastructure/actions/workflows/deploy.yml/badge.svg)](https://github.com/leonidgrishenkov/yandex-cloud-infrastructure/actions/workflows/deploy.yml)
-# Configure Terraform
 
-[Yandex Cloud Terraform Provider](https://terraform-provider.yandexcloud.net/index)
+# About
 
-Here I will explain how to configure Terraform on your local machine to be able to work with Yandex Cloud Terraform provider.
+This repository manages infrastructure resources for Yandex Cloud using Infrastructure as Code (IaC) principles. The project utilizes Terraform with Yandex Object Storage (S3-compatible) as the backend for storing state files, ensuring reliable and consistent infrastructure management.
 
-For more details see official documentation: [Getting started with Terraform](https://yandex.cloud/en/docs/tutorials/infrastructure-management/terraform-quickstart)
-Create configuration file for Terraform:
+All infrastructure deployments and teardowns are orchestrated through manually triggered GitHub Actions workflows, providing controlled and auditable changes to the cloud environment.
 
-```sh
-touch ~/.terraformrc
-```
+The CI/CD pipeline leverages a Docker image specifically designed for Terragrunt and Yandex Cloud operations, available at [leonidgrishenkov/ci-terragrunt-yc](https://github.com/leonidgrishenkov/ci-terragrunt-yc).
 
-Add there the followings:
-
-```sh
-provider_installation {
-  network_mirror {
-    url = "https://terraform-mirror.yandexcloud.net/"
-    include = ["registry.terraform.io/*/*"]
-  }
-  direct {
-    exclude = ["registry.terraform.io/*/*"]
-  }
-}
-```
-
-# Setup S3 backend
+# How to setup S3 backend
 
 [Uploading Terraform states to Yandex Object Storage](https://yandex.cloud/en/docs/tutorials/infrastructure-management/terraform-state-storage#set-up-backend)
 Create S3 bucket for terraform states and special service account for terraform with `editor` role:
 
 ```sh
-$ cd ./live/global/s3/terraform-state
+cd ./live/global/s3/terraform-state
 
-$ terraform apply
+terraform apply
 ```
 
 Create auth key for SA:
@@ -57,9 +39,9 @@ Profile 'sa-terraform' created and activated
 Configure profile:
 
 ```sh
-$ yc config set service-account-key /tmp/.terraform-sa-auth-key.json
-$ yc config set cloud-id $YC_CLOUD_ID
-$ yc config set folder-id $YC_FOLDER_ID
+yc config set service-account-key /tmp/.terraform-sa-auth-key.json
+yc config set cloud-id $YC_CLOUD_ID
+yc config set folder-id $YC_FOLDER_ID
 ```
 
 Grab output of access and secret keys:
@@ -67,15 +49,3 @@ Grab output of access and secret keys:
 ```sh
 terraform output -json
 ```
-
-# Serial port output
-
-Get serial port output of deployed compute instance:
-
-```sh
-yc compute instance get-serial-port-output --name prod-compute-1
-```
-
-# CI/CD
-
-Docker image for GitHub CI/CD defined [here](https://github.com/leonidgrishenkov/ci-terragrunt-yc)
