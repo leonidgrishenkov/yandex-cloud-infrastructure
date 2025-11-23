@@ -6,7 +6,7 @@ users:
     hashed_passwd: ${yc_user_passwd}
     lock_passwd: false
     shell: /bin/bash
-    ssh-authorized-keys:
+    ssh_authorized_keys:
       - ${yc_user_ssh_key}
 
 write_files:

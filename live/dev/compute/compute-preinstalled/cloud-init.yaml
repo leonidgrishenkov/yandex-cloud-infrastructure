@@ -5,8 +5,8 @@ users:
     sudo: ALL=(ALL) NOPASSWD:ALL
     hashed_passwd: ${yc_user_passwd}
     lock_passwd: false
-    shell: /bin/zsh
-    ssh-authorized-keys:
+    shell: /bin/bash
+    ssh_authorized_keys:
       - ${yc_user_ssh_key}
 
 write_files:
