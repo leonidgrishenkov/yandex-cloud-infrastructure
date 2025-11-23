@@ -5,7 +5,7 @@ users:
     sudo: ALL=(ALL) NOPASSWD:ALL
     hashed_passwd: ${yc_user_passwd}
     lock_passwd: false
-    shell: /bin/bash
+    shell: /bin/zsh
     ssh-authorized-keys:
       - ${yc_user_ssh_key}
 
@@ -21,18 +21,32 @@ write_files:
 
   - path: /etc/profile.d/extra.sh
     content: |
-      export ENV="dev"
+      export ENV=dev
+      export LANG=en_US.UTF-8
+      epxort TZ=UTC
+    owner: root:root
+    permissions: "0644"
+
+  - path: /tmp/packages
+    content: |
+      sudo=1.9.*
+      curl=8.14.*
+      git=1:2.47.*
+      ca-certificates=2025*
+      zsh=5.9*
+      locales=2.4*
+      gnupg=2.4.*
+      stow=2.4.*
+      gcc=4:14.*
+      wget=1.25.*
+      build-essential=12.12
+      unzip=6.0-*
     owner: root:root
     permissions: "0644"
 
 runcmd:
   - |
-    sudo apt update \
-    && sudo apt upgrade -y \
-    && sudo apt install -y stow gpg wget git zsh
-  - |
-    git clone -q https://github.com/leonidgrishenkov/dotfiles.git /tmp/dotfiles \
-    && cd /tmp/dotfiles \
-    && stow --stow atuin bat btop delta fsh lazygit ripgrep ruff starship yazi zsh mise
-  - chsh -s $(which zsh)
-  - curl https://mise.run/zsh | sh
+    apt update -q \
+    && apt upgrade -yq \
+    && xargs -a /tmp/packages apt-get install -y --no-install-recommends -q
+    && localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
