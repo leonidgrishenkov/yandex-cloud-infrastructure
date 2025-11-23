@@ -26,4 +26,4 @@ write_files:
     permissions: '0644'
 
 runcmd:
-  - sudo apt update && sudo apt upgrade -y
+  - apt update && apt upgrade -y
