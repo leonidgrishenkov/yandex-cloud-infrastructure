@@ -1,15 +1,25 @@
+# Static IP address
 output "dev-addr-1" {
   value = yandex_vpc_address.dev-addr-1.external_ipv4_address[0].address
 }
 
+# Network id
+output "dev-vpc-1-id" {
+  value = yandex_vpc_network.dev-vpc-1.id
+}
+
+# Subnet ids
 output "dev-vpc-1-subnet-a-id" {
   value = yandex_vpc_subnet.dev-vpc-1-subnet-a.id
 }
-
 output "dev-vpc-1-subnet-b-id" {
   value = yandex_vpc_subnet.dev-vpc-1-subnet-b.id
 }
+output "dev-vpc-1-subnet-d-id" {
+  value = yandex_vpc_subnet.dev-vpc-1-subnet-d.id
+}
 
+# Security groups
 output "dev-vpc-1-sg-1-id" {
   value = yandex_vpc_security_group.dev-vpc-1-sg-1.id
 }
@@ -19,7 +29,7 @@ output "dev-vpc-1-sg-2-id" {
 output "dev-vpc-1-sg-3-id" {
   value = yandex_vpc_security_group.dev-vpc-1-sg-3.id
 }
-
+# As array
 output "dev-vpc-1-sg-ids" {
   value = [
     yandex_vpc_security_group.dev-vpc-1-sg-1.id,

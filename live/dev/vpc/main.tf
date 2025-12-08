@@ -17,6 +17,13 @@ resource "yandex_vpc_subnet" "dev-vpc-1-subnet-b" {
   v4_cidr_blocks = ["10.1.0.0/24"]
 }
 
+resource "yandex_vpc_subnet" "dev-vpc-1-subnet-d" {
+  name           = "dev-vpc-1-subnet-d"
+  zone           = "ru-central1-d"
+  network_id     = yandex_vpc_network.dev-vpc-1.id
+  v4_cidr_blocks = ["10.2.0.0/24"]
+}
+
 # https://terraform-provider.yandexcloud.net/Resources/vpc_address
 resource "yandex_vpc_address" "dev-addr-1" {
   name        = "dev-addr-1"
