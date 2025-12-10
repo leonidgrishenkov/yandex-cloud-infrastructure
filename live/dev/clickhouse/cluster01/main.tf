@@ -1,11 +1,18 @@
 # https://yandex.cloud/ru/docs/terraform/resources/mdb_clickhouse_cluster
 resource "yandex_mdb_clickhouse_cluster" "ch-cluster01" {
-  name                = "ch-cluster01"
-  environment         = "PRESTABLE"
-  network_id          = var.vpc_id
-  security_group_ids  = var.vpc_sg_ids
+  name        = "ch-cluster01"
+  description = "Clickhouse sharded cluster"
+  version     = "25.10"
+  environment = "PRESTABLE"
+  network_id  = var.vpc_id
+
+  security_group_ids = var.vpc_sg_ids
+
   deletion_protection = false
-  version             = "25.10"
+  labels = {
+    env = "dev"
+    iac = "true"
+  }
 
   # Use ClickHouse Keeper as a coordination system instead of Zookeeper and place it on the same hosts with ClickHouse.
   embedded_keeper = true
@@ -21,6 +28,7 @@ resource "yandex_mdb_clickhouse_cluster" "ch-cluster01" {
   }
 
   clickhouse {
+    # This resource definition will be shared between all hosts (if not defined for any of them).
     resources {
       resource_preset_id = "s2.micro"
       disk_type_id       = "network-ssd"
