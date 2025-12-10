@@ -110,6 +110,7 @@ resource "yandex_mdb_clickhouse_cluster" "ch-cluster01" {
     shard_name = "shard2"
   }
 
+  # Ignore conflict with resources created by other tools (means not by terraform).
   lifecycle {
     ignore_changes = [database, user]
   }
