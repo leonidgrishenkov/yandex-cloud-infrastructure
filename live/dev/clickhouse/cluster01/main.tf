@@ -9,6 +9,13 @@ resource "yandex_mdb_clickhouse_cluster" "ch-cluster01" {
   folder_id = var.folder_id
   network_id  = var.vpc_id
   security_group_ids = var.vpc_sg_ids
+  
+  # Increase timeouts for cluster operations to prevent terraform from raising an error.
+  timeouts {
+    create = "2h"
+    update = "2h"
+    delete = "1h"
+  }
 
   deletion_protection = false
   labels = {
