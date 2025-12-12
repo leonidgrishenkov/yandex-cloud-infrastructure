@@ -34,3 +34,7 @@ variable "vpc_subnet_a_id" {
 variable "vpc_subnet_b_id" {
   type = string
 }
+
+variable "vpc_subnet_d_id" {
+  type = string
+}

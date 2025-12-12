@@ -2,10 +2,12 @@
 resource "yandex_mdb_clickhouse_cluster" "ch-cluster01" {
   name        = "ch-cluster01"
   description = "Clickhouse sharded cluster"
+
   version     = "25.10"
   environment = "PRESTABLE"
-  network_id  = var.vpc_id
 
+  folder_id = var.folder_id
+  network_id  = var.vpc_id
   security_group_ids = var.vpc_sg_ids
 
   deletion_protection = false
@@ -115,6 +117,19 @@ resource "yandex_mdb_clickhouse_cluster" "ch-cluster01" {
     type       = "CLICKHOUSE"
     zone       = "ru-central1-b"
     subnet_id  = var.vpc_subnet_b_id
+    shard_name = "shard2"
+  }
+  # Zone D
+  host {
+    type       = "CLICKHOUSE"
+    zone       = "ru-central1-d"
+    subnet_id  = var.vpc_subnet_d_id
+    shard_name = "shard1"
+  }
+  host {
+    type       = "CLICKHOUSE"
+    zone       = "ru-central1-d"
+    subnet_id  = var.vpc_subnet_d_id
     shard_name = "shard2"
   }
 
