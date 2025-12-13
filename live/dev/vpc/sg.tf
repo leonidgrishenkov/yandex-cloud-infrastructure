@@ -36,15 +36,10 @@ resource "yandex_vpc_security_group" "dev-vpc-1-sg-3" {
   network_id = yandex_vpc_network.dev-vpc-1.id
 
   egress {
-    protocol       = "TCP"
-    description    = "All HTTP traffic"
+    description    = "Allow outgoing connections to any required resource"
+    protocol       = "ANY"
+    from_port      = 0
+    to_port        = 65535
     v4_cidr_blocks = ["0.0.0.0/0"]
-    port           = 80
-  }
-  egress {
-    protocol       = "TCP"
-    description    = "All HTTPS traffic"
-    v4_cidr_blocks = ["0.0.0.0/0"]
-    port           = 443
   }
 }
