@@ -151,10 +151,18 @@ resource "yandex_mdb_clickhouse_database" "main" {
   name       = "main"
 }
 
+resource "random_password" "admin-passwd" {
+  length  = 20
+  upper   = true
+  lower   = true
+  numeric = true
+  special = true
+}
+
 resource "yandex_mdb_clickhouse_user" "admin" {
   cluster_id = yandex_mdb_clickhouse_cluster.ch-cluster01.id
   name       = "yc-user"
-  password   = "qwerty"
+  password   = random_password.admin-passwd.result
   permission {
     database_name = yandex_mdb_clickhouse_database.main.name
   }
