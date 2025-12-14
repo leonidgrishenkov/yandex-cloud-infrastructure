@@ -57,7 +57,7 @@ resource "random_password" "admin_password" {
   upper   = true
   lower   = true
   numeric = true
-  special = true
+  special = false
 }
 
 # https://yandex.cloud/ru/docs/terraform/resources/mdb_kafka_user
