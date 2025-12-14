@@ -18,46 +18,15 @@ variable "zone" {
   default = "ru-central1-a"
 }
 
-variable "vpc_subnet_id" {
-  type        = string
-  description = "VPC subnet ID"
+variable "vpc_subnet_ids" {
+  type = list(string)
 }
 
-variable "vpc_security_group_ids" {
-  type        = list(string)
-  description = "VPC security group IDs"
+variable "vpc_sg_ids" {
+  type = list(string)
 }
 
-variable "vpc_nat_ip" {
-  type        = string
-  description = "VPC NAT IP address"
-}
-
-variable "name" {
-  type        = string
-  description = "Instance name"
-}
-
-variable "platform_id" {
-  type        = string
-  description = "Instance platform id"
-}
-
-variable "cores" {
-  type        = string
-  description = "Instance cores number"
-}
-
-variable "memory" {
-  type        = string
-  description = "Instance memory"
-}
-
-variable "disk_type" {
-  type = string
-}
-
-variable "disk_size" {
+variable "vpc_id" {
   type = string
 }
 

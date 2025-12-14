@@ -5,11 +5,20 @@ resource "yandex_mdb_kafka_cluster" "cluster" {
   name        = "cluster01"
 
   network_id         = var.vpc_id
-  subnet_ids         = var.subnet_ids
+  subnet_ids         = var.vpc_subnet_ids
   security_group_ids = var.vpc_sg_ids
   folder_id          = var.folder_id
 
   deletion_protection = false
+
+  labels = var.labels
+
+  # Increase timeouts for cluster operations to prevent terraform from raising an error.
+  timeouts {
+    create = "2h"
+    update = "2h"
+    delete = "1h"
+  }
 
   config {
     version          = "3.9"
@@ -34,34 +43,32 @@ resource "yandex_mdb_kafka_cluster" "cluster" {
       }
 
       kafka_config {
+        auto_create_topics_enable  = true
         compression_type           = "COMPRESSION_TYPE_ZSTD"
         num_partitions             = 3
         default_replication_factor = 3
       }
     }
   }
-
 }
 
-# https://yandex.cloud/ru/docs/terraform/resources/mdb_kafka_topic
-resource "yandex_mdb_kafka_topic" "topic01" {
-  cluster_id         = yandex_mdb_kafka_cluster.cluster.id
-  name               = "events"
-  partitions         = 3
-  replication_factor = 3
+resource "random_password" "admin_password" {
+  length  = 30
+  upper   = true
+  lower   = true
+  numeric = true
+  special = true
+}
 
-  topic_config {
-    cleanup_policy        = "CLEANUP_POLICY_COMPACT"
-    compression_type      = "COMPRESSION_TYPE_LZ4"
-    delete_retention_ms   = 86400000
-    file_delete_delay_ms  = 60000
-    flush_messages        = 128
-    flush_ms              = 1000
-    min_compaction_lag_ms = 0
-    retention_bytes       = 10737418240
-    retention_ms          = 604800000
-    max_message_bytes     = 1048588
-    min_insync_replicas   = 1
-    segment_bytes         = 268435456
+# https://yandex.cloud/ru/docs/terraform/resources/mdb_kafka_user
+resource "yandex_mdb_kafka_user" "admin" {
+  cluster_id = yandex_mdb_kafka_cluster.cluster.id
+  name       = "admin"
+  password   = random_password.admin_password.result
+
+  permission {
+    topic_name = "*" # all topics, because we set 'auto_create_topics_enable' to 'true'
+    role       = "ACCESS_ROLE_ADMIN"
   }
 }
+
