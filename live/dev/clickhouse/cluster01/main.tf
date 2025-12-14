@@ -1,5 +1,5 @@
 # https://yandex.cloud/ru/docs/terraform/resources/mdb_clickhouse_cluster
-resource "yandex_mdb_clickhouse_cluster" "ch-cluster01" {
+resource "yandex_mdb_clickhouse_cluster" "cluster01" {
   name        = "ch-cluster01"
   description = "Clickhouse sharded cluster"
 
@@ -147,11 +147,11 @@ resource "yandex_mdb_clickhouse_cluster" "ch-cluster01" {
 }
 
 resource "yandex_mdb_clickhouse_database" "main" {
-  cluster_id = yandex_mdb_clickhouse_cluster.ch-cluster01.id
+  cluster_id = yandex_mdb_clickhouse_cluster.cluster01.id
   name       = "main"
 }
 
-resource "random_password" "admin-passwd" {
+resource "random_password" "admin_password" {
   length  = 20
   upper   = true
   lower   = true
@@ -160,9 +160,9 @@ resource "random_password" "admin-passwd" {
 }
 
 resource "yandex_mdb_clickhouse_user" "admin" {
-  cluster_id = yandex_mdb_clickhouse_cluster.ch-cluster01.id
+  cluster_id = yandex_mdb_clickhouse_cluster.cluster01.id
   name       = "yc-user"
-  password   = random_password.admin-passwd.result
+  password   = random_password.admin_password.result
   permission {
     database_name = yandex_mdb_clickhouse_database.main.name
   }

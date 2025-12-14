@@ -1,5 +1,5 @@
-output "admin-passwd" {
-  value     = random_password.admin-passwd.result
+output "admin_password" {
+  value     = random_password.admin_password.result
   sensitive = true
   description = "Admin password"
 }
