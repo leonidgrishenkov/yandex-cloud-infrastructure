@@ -38,3 +38,13 @@ variable "vpc_subnet_b_id" {
 variable "vpc_subnet_d_id" {
   type = string
 }
+
+variable "kafka_consumer_name" {
+  type = string
+}
+
+variable "kafka_consumer_password" {
+  type      = string
+  sensitive = true
+}
+
