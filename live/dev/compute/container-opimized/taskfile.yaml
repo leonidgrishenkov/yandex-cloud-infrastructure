@@ -16,3 +16,4 @@ tasks:
         terragrunt output -raw ssh_private_key > {{ .SSH_KEY_DIR }}/{{ .SSH_KEY_NAME }}
         chmod 600 {{ .SSH_KEY_DIR }}/{{ .SSH_KEY_NAME }}
       - terragrunt output -raw ssh_public_key > {{ .SSH_KEY_DIR }}/{{ .SSH_KEY_NAME }}.pub
+

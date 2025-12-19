@@ -5,7 +5,7 @@ tasks:
   sshkey-dump:
     desc: Dump private SSH key from Terragrunt output
     vars:
-      SSH_KEY_DIR: ~/.ssh/keys/yandex-cloud/compute-02
+      SSH_KEY_DIR: ~/.ssh/keys/yandex-cloud/compute-data-platform
       SSH_KEY_NAME: yc-user
     cmds:
       - mkdir -p {{ .SSH_KEY_DIR }}

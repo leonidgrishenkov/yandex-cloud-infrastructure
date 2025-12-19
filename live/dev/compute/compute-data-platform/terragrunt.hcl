@@ -3,7 +3,7 @@ include "root" {
 }
 
 terraform {
-  source = "../../../../modules/compute//container-optimized"
+  source = "."
 }
 
 dependency "vpc" {
@@ -11,16 +11,15 @@ dependency "vpc" {
 }
 
 inputs = {
-  name        = "dev-compute-2"
-  platform_id = "standard-v3"
-  cores       = 8
-  memory      = 16
-  disk_type                = "network-hdd"
-  disk_size                = 100
+  name                     = "compute-data-platform"
+  platform_id              = "standard-v3"
+  cores                    = 2
+  memory                   = 6
+  disk_type                = "network-ssd"
+  disk_size                = 70
   vpc_subnet_id            = dependency.vpc.outputs.dev-vpc-1-subnet-a-id
   vpc_security_group_ids   = dependency.vpc.outputs.dev-vpc-1-sg-ids
   vpc_nat_ip               = dependency.vpc.outputs.dev-addr-1
-  cloud_init_template_path = "./cloud-init.yaml"
   labels = {
     env = "dev"
     iac = "true"
