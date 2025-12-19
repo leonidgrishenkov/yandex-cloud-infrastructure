@@ -78,5 +78,5 @@ variable "image_family" {
 
 variable "nat" {
   type = bool
-  default = false
+  default = true
 }
