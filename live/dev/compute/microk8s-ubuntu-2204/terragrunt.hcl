@@ -11,7 +11,7 @@ dependency "vpc" {
 }
 
 inputs = {
-  name                     = "microk8s"
+  name                     = "microk8s-ubuntu-2204"
   platform_id              = "standard-v3"
   image_family             = "ubuntu-2204-lts-oslogin"
   cores                    = 16
