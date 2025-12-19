@@ -1,0 +1,23 @@
+#cloud-config
+users:
+  - name: yc-user
+    groups: sudo
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    hashed_passwd: ${yc_user_passwd}
+    lock_passwd: false
+    shell: /bin/bash
+    ssh_authorized_keys:
+      - ${yc_user_ssh_key}
+
+write_files:
+  - path: /etc/ssh/sshd_config.d/extra.conf
+    content: |
+      AllowUsers yc-user
+      PermitRootLogin no
+      PasswordAuthentication no
+      Port 51222
+    owner: root:root
+    permissions: '0644'
+
+runcmd:
+  - sudo apt update && sudo apt upgrade -y
