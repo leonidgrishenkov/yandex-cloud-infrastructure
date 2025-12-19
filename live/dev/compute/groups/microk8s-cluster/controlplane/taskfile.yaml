@@ -1,0 +1,18 @@
+---
+version: "3"
+
+tasks:
+  sshkey-dump:
+    desc: Dump private SSH key from Terragrunt output
+    vars:
+      SSH_KEY_DIR:
+        sh: echo "$HOME/.ssh/keys/yandex-cloud/compute/groups/microk8s-cluster/$(basename $(pwd))"
+      SSH_KEY_NAME: yc-user
+    cmds:
+      - mkdir -p {{ .SSH_KEY_DIR }}
+      - if [[ -f {{ .SSH_KEY_DIR }}/{{ .SSH_KEY_NAME }} ]]; then rm -vi {{ .SSH_KEY_DIR }}/{{ .SSH_KEY_NAME }}; fi
+      - if [[ -f {{ .SSH_KEY_DIR }}/{{ .SSH_KEY_NAME }}.pub ]]; then rm -vi {{ .SSH_KEY_DIR }}/{{ .SSH_KEY_NAME }}.pub; fi
+      - |
+        terragrunt output -raw ssh_private_key > {{ .SSH_KEY_DIR }}/{{ .SSH_KEY_NAME }}
+        chmod 600 {{ .SSH_KEY_DIR }}/{{ .SSH_KEY_NAME }}
+      - terragrunt output -raw ssh_public_key > {{ .SSH_KEY_DIR }}/{{ .SSH_KEY_NAME }}.pub
