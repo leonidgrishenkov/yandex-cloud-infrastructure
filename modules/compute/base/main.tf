@@ -29,7 +29,7 @@ resource "yandex_compute_instance" "yci" {
   network_interface {
     subnet_id          = var.vpc_subnet_id
     security_group_ids = var.vpc_security_group_ids
-    nat                = true
+    nat                = var.nat
     ipv4               = true
     nat_ip_address     = var.vpc_nat_ip
   }

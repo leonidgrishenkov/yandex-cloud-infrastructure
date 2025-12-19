@@ -75,3 +75,8 @@ variable "cloud_init_template_path" {
 variable "image_family" {
   type = string
 }
+
+variable "nat" {
+  type = bool
+  default = false
+}
