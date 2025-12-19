@@ -31,6 +31,7 @@ variable "vpc_security_group_ids" {
 variable "vpc_nat_ip" {
   type        = string
   description = "VPC NAT IP address"
+  default     = null
 }
 
 variable "name" {
