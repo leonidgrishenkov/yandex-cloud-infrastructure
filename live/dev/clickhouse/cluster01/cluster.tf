@@ -74,36 +74,41 @@ resource "yandex_mdb_clickhouse_cluster" "cluster01" {
     shard_name       = "shard1"
   }
   host {
-    type       = "CLICKHOUSE"
-    zone       = "ru-central1-a"
-    subnet_id  = var.vpc_subnet_a_id
-    shard_name = "shard2"
+    type             = "CLICKHOUSE"
+    zone             = "ru-central1-a"
+    assign_public_ip = true
+    subnet_id        = var.vpc_subnet_a_id
+    shard_name       = "shard2"
   }
   # Zone B
   host {
-    type       = "CLICKHOUSE"
-    zone       = "ru-central1-b"
-    subnet_id  = var.vpc_subnet_b_id
-    shard_name = "shard1"
+    type             = "CLICKHOUSE"
+    zone             = "ru-central1-b"
+    assign_public_ip = true
+    subnet_id        = var.vpc_subnet_b_id
+    shard_name       = "shard1"
   }
   host {
-    type       = "CLICKHOUSE"
-    zone       = "ru-central1-b"
-    subnet_id  = var.vpc_subnet_b_id
-    shard_name = "shard2"
+    type             = "CLICKHOUSE"
+    zone             = "ru-central1-b"
+    assign_public_ip = true
+    subnet_id        = var.vpc_subnet_b_id
+    shard_name       = "shard2"
   }
   # Zone D
   host {
-    type       = "CLICKHOUSE"
-    zone       = "ru-central1-d"
-    subnet_id  = var.vpc_subnet_d_id
-    shard_name = "shard1"
+    type             = "CLICKHOUSE"
+    zone             = "ru-central1-d"
+    assign_public_ip = true
+    subnet_id        = var.vpc_subnet_d_id
+    shard_name       = "shard1"
   }
   host {
-    type       = "CLICKHOUSE"
-    zone       = "ru-central1-d"
-    subnet_id  = var.vpc_subnet_d_id
-    shard_name = "shard2"
+    type             = "CLICKHOUSE"
+    zone             = "ru-central1-d"
+    assign_public_ip = true
+    subnet_id        = var.vpc_subnet_d_id
+    shard_name       = "shard2"
   }
 
   # Ignore conflict with resources created by other tools (means not by terraform).
