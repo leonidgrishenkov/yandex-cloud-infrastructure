@@ -1,7 +1,7 @@
 #cloud-config
 users:
   - name: yc-user
-    groups: sudo
+    groups: sudo,microk8s
     sudo: ALL=(ALL) NOPASSWD:ALL
     hashed_passwd: ${yc_user_passwd}
     lock_passwd: false
@@ -25,9 +25,24 @@ write_files:
     owner: root:root
     permissions: '0644'
 
+  - path: /home/yc-user/.bash_aliases
+    content: |
+      # Kubernetes aliases
+      alias k='microk8s kubectl'
+      alias kgp='microk8s kubectl get pods'
+      alias kgs='microk8s kubectl get services'
+      alias kgn='microk8s kubectl get nodes'
+      alias kga='microk8s kubectl get all'
+    owner: yc-user:yc-user
+    permissions: '0644'
+
 runcmd:
   - |
     apt update \
       && apt upgrade -y \
       && apt install -y snapd
   - snap install microk8s --classic
+  - |
+    mkdir -p /home/yc-user/.kube \
+    && chown yc-user:microk8s /home/yc-user/.kube
+  - microk8s status --wait-ready
