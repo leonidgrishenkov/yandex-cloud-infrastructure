@@ -1,7 +1,7 @@
 #cloud-config
 users:
   - name: yc-user
-    groups: sudo,microk8s
+    groups: sudo
     sudo: ALL=(ALL) NOPASSWD:ALL
     hashed_passwd: ${yc_user_passwd}
     lock_passwd: false
@@ -17,33 +17,39 @@ write_files:
       PasswordAuthentication no
       Port 51222
     owner: root:root
-    permissions: '0644'
+    permissions: "0644"
 
   - path: /etc/profile.d/extra.sh
     content: |
       export ENV="dev"
     owner: root:root
-    permissions: '0644'
-
-  - path: /home/yc-user/.bash_aliases
-    content: |
-      # Kubernetes aliases
-      alias k='microk8s kubectl'
-      alias kgp='microk8s kubectl get pods'
-      alias kgs='microk8s kubectl get services'
-      alias kgn='microk8s kubectl get nodes'
-      alias kga='microk8s kubectl get all'
-    owner: yc-user:yc-user
-    permissions: '0644'
+    permissions: "0644"
 
 runcmd:
-  - |
-    apt update \
-      && apt upgrade -y \
-      && apt install -y snapd
+  - apt update && apt upgrade -y
+
+  # Install snap demon
+  - apt install -y snapd
+
+  # Install MicroK8s
   - snap install microk8s --classic
-  - |
-    mkdir -p /home/yc-user/.kube \
-    && chown yc-user:microk8s /home/yc-user/.kube
+
+  # Wait until for microk8s to be ready
   - microk8s status --wait-ready
 
+  # Add user to microk8s group
+  - usermod -aG microk8s yc-user
+
+  # Create .kube directory
+  - mkdir -p /home/yc-user/.kube
+  - chown -R yc-user:yc-user /home/yc-user/.kube
+
+  # Setup some useful aliases for yc-user
+  - |
+    cat <<EOF > /home/yc-user/.bash_aliases
+      alias k='microk8s kubectl'
+      alias m='microk8s'
+    EOF
+  - chown yc-user:yc-user /home/yc-user/.bash_aliases
+
+final_message: "System initialized successfully"
