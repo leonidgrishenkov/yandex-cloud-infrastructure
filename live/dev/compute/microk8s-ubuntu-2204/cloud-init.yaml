@@ -47,9 +47,13 @@ runcmd:
   # Setup some useful aliases for yc-user
   - |
     cat <<EOF > /home/yc-user/.bash_aliases
-      alias k='microk8s kubectl'
+      alias kubectl='microk8s kubectl'
+      alias k='kubectl'
       alias m='microk8s'
     EOF
   - chown yc-user:yc-user /home/yc-user/.bash_aliases
+
+  # Enable microk8s key components
+  - microk8s enable dns dashboard hostpath-storage
 
 final_message: "System initialized successfully"
