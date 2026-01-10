@@ -1,4 +1,6 @@
 data "yandex_compute_image" "image" {
+  count = var.image_family != null ? 1 : 0
+
   family = var.image_family
 }
 
@@ -17,13 +19,18 @@ resource "yandex_compute_instance" "yci" {
     core_fraction = 100
   }
 
+  # Either initialize_params or disk_id must be set. Either image_id or snapshot_id must be specified.
   boot_disk {
+    disk_id = var.disk_id
+    mode    = var.disk_mode
+
     initialize_params {
-      image_id = data.yandex_compute_image.image.id
-      type     = var.disk_type
-      size     = var.disk_size
+      image_id    = try(data.yandex_compute_image.image[0].id, null)
+      type        = var.disk_type
+      size        = var.disk_size
+      snapshot_id = var.snapshot_id
     }
-    auto_delete = true
+    auto_delete = var.disk_auto_delete
   }
 
   network_interface {

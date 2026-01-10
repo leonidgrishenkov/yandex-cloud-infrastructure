@@ -55,11 +55,38 @@ variable "memory" {
 }
 
 variable "disk_type" {
-  type = string
+  type    = string
+  default = null
+}
+
+variable "image_family" {
+  type    = string
+  default = null
+}
+
+variable "snapshot_id" {
+  type    = string
+  default = null
 }
 
 variable "disk_size" {
-  type = string
+  type    = string
+  default = null
+}
+
+variable "disk_id" {
+  type    = string
+  default = null
+}
+
+variable "disk_mode" {
+  type    = string
+  default = null
+}
+
+variable "disk_auto_delete" {
+  type    = bool
+  default = null
 }
 
 variable "labels" {
@@ -72,11 +99,8 @@ variable "cloud_init_template_path" {
   default     = null
 }
 
-variable "image_family" {
-  type = string
-}
-
 variable "nat" {
-  type = bool
-  default = true
+  type        = bool
+  default     = true
+  description = "Whether to use public NAT IP address"
 }
