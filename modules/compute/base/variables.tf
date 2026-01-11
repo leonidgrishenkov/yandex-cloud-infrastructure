@@ -64,6 +64,11 @@ variable "image_family" {
   default = null
 }
 
+variable "image_id" {
+  type    = string
+  default = null
+}
+
 variable "snapshot_id" {
   type    = string
   default = null
