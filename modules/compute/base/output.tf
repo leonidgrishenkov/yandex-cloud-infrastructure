@@ -14,3 +14,8 @@ output "ssh_public_key" {
   value       = tls_private_key.yc_user_ssh_key.public_key_openssh
   description = "yc-user's SSH public key"
 }
+
+output "vpc_nat_ip" {
+  value       = yandex_compute_instance.yci.network_interface[0].nat_ip_address
+  description = "VPC NAT public IP address"
+}
