@@ -25,7 +25,7 @@ resource "yandex_vpc_security_group" "dev-vpc-1-sg-2" {
   ingress {
     protocol       = "ANY"
     description    = "IP whitelist for all traffic"
-    v4_cidr_blocks = ["169.150.245.15/32"]
+    v4_cidr_blocks = ["80.251.232.194/32"]
     from_port      = 0
     to_port        = 65535
   }
