@@ -9,7 +9,7 @@ remote_state {
     key    = "${path_relative_to_include()}/terraform.tfstate"
     region = "ru-central1"
     endpoints = {
-      s3 = get_env("YC_S3_ENDPOINT") 
+      s3 = get_env("YC_S3_ENDPOINT")
     }
     encrypt                     = false
     skip_region_validation      = true
@@ -28,6 +28,18 @@ generate "provider" {
       yandex = {
         source = "yandex-cloud/yandex"
       }
+      tls = {
+        source  = "hashicorp/tls"
+        version = "~> 4.0"
+      }
+      local = {
+        source  = "hashicorp/local"
+        version = "~> 2.0"
+      }
+      random = {
+        source  = "hashicorp/random"
+        version = "~> 3.0"
+      }
     }
     required_version = ">= 0.13"
   }
@@ -42,8 +54,8 @@ generate "provider" {
 }
 
 inputs = {
-  cloud_id      = get_env("YC_CLOUD_ID")
-  folder_id     = get_env("YC_FOLDER_ID")
-  iam_token     = get_env("YC_IAM_TOKEN")
-  zone          = "ru-central1-a"
+  cloud_id  = get_env("YC_CLOUD_ID")
+  folder_id = get_env("YC_FOLDER_ID")
+  iam_token = get_env("YC_IAM_TOKEN")
+  zone      = "ru-central1-a"
 }
