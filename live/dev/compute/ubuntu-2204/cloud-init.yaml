@@ -1,18 +1,18 @@
 #cloud-config
 users:
-  - name: yc-user
+  - name: ${username}
     groups: sudo
     sudo: ALL=(ALL) NOPASSWD:ALL
-    hashed_passwd: ${yc_user_passwd}
+    hashed_passwd: ${passwd}
     lock_passwd: false
     shell: /bin/bash
     ssh_authorized_keys:
-      - ${yc_user_ssh_key}
+      - ${ssh_key}
 
 write_files:
   - path: /etc/ssh/sshd_config.d/extra.conf
     content: |
-      AllowUsers yc-user
+      AllowUsers ${username}
       PermitRootLogin no
       PasswordAuthentication no
       Port 51222
