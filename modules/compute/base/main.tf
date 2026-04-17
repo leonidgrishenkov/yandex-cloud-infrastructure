@@ -37,8 +37,9 @@ resource "yandex_compute_instance" "yci" {
     user-data = templatefile(
       coalesce(var.cloud_init_template_path, "${path.module}/cloud-init.yaml"),
       {
-        yc_user_passwd  = random_password.yc_user_passwd.bcrypt_hash,
-        yc_user_ssh_key = tls_private_key.yc_user_ssh_key.public_key_openssh
+        username = var.username
+        passwd   = random_password.passwd.bcrypt_hash,
+        ssh_key  = tls_private_key.ssh_key.public_key_openssh
       }
     )
   }

@@ -77,6 +77,11 @@ variable "image_family" {
 }
 
 variable "nat" {
-  type = bool
+  type    = bool
   default = true
+}
+
+variable "username" {
+  type    = string
+  default = "main"
 }

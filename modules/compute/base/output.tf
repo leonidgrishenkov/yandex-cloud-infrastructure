@@ -1,18 +1,18 @@
-output "yc_user_passwd" {
-  value     = random_password.yc_user_passwd.result
+output "passwd" {
+  value     = random_password.passwd.result
   sensitive = true
-  description = "yc-user's password"
+  description = "User's password"
 }
 
 output "ssh_private_key" {
-  value       = tls_private_key.yc_user_ssh_key.private_key_openssh
+  value       = tls_private_key.ssh_key.private_key_openssh
   sensitive   = true
-  description = "yc-user's SSH private key"
+  description = "User's SSH private key"
 }
 
 output "ssh_public_key" {
-  value       = tls_private_key.yc_user_ssh_key.public_key_openssh
-  description = "yc-user's SSH public key"
+  value       = tls_private_key.ssh_key.public_key_openssh
+  description = "User's SSH public key"
 }
 
 output "vpc_nat_ip" {
