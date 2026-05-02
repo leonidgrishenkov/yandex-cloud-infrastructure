@@ -1,8 +1,3 @@
-# Static IP address
-output "dev-addr-1" {
-  value = yandex_vpc_address.dev-addr-1.external_ipv4_address[0].address
-}
-
 # Network id
 output "dev-vpc-1-id" {
   value = yandex_vpc_network.dev-vpc-1.id
