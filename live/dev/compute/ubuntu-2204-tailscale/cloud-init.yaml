@@ -1,0 +1,35 @@
+#cloud-config
+users:
+  - name: ${username}
+    groups: sudo
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    hashed_passwd: ${passwd}
+    lock_passwd: false
+    shell: /bin/bash
+    ssh_authorized_keys:
+      - ${ssh_key}
+
+write_files:
+  - path: /etc/ssh/sshd_config.d/extra.conf
+    content: |
+      AllowUsers ${username}
+      PermitRootLogin no
+      PasswordAuthentication no
+      Port 51222
+    owner: root:root
+    permissions: '0644'
+
+  - path: /etc/profile.d/extra.sh
+    content: |
+      export ENV="dev"
+    owner: root:root
+    permissions: '0644'
+
+runcmd:
+  - |
+    DEBIAN_FRONTEND=noninteractive apt update \
+      && DEBIAN_FRONTEND=noninteractive apt upgrade -y -o Dpkg::Options::="--force-confold" \
+      && DEBIAN_FRONTEND=noninteractive apt install -y mosh
+  - curl -fsSL https://tailscale.com/install.sh | sh
+  - tailscale up --auth-key=${tailscale_auth_key} --ssh
+  - systemctl restart ssh
