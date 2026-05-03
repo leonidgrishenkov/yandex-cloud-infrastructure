@@ -85,3 +85,9 @@ variable "username" {
   type    = string
   default = "main"
 }
+
+variable "extra_cloud_init_template_vars" {
+  type        = map(any)
+  description = "Extra key-value pairs to render inside cloud-init file"
+  default     = {}
+}
